@@ -12,7 +12,10 @@ class Criatura extends Personagem {
   static final int MOVER_DIREITA = 3;
   static final int MOVER_ESQUERDA = 4;
   static final int QUANTIDADE_MOVIMENTOS = 5;
-  static final String SIMBOLO_CRIATURA = "Z";
+  static final String SIMBOLO_CRIATURA = "Z";  //padrão
+  static final String SIMBOLO_CRIATURA_CARNEIRO = "C";
+  static final String SIMBOLO_CRIATURA_LOBO = "L";
+
 
   // Variável privada para criar números aleatório
   Random _aleatorio;
