@@ -1,10 +1,9 @@
 
 import 'dart:math';
-//import 'package:roguelike/criatura.dart';
 import 'package:roguelike/mundo.dart';
 import 'package:roguelike/personagem.dart';
 import 'package:roguelike/ponto_2d.dart';
-//import 'package:roguelike/jogador.dart';
+import 'package:roguelike/jogador.dart';
 
 
 // Classe Criatura é derivada (filha) da classe Personagem
@@ -23,7 +22,7 @@ class Carneiro extends Personagem{
 
   // Variável privada para criar números aleatório
   Random _aleatorio;
-  //Jogador jogador;
+  Jogador jogador;
 
   // Construtor padrão + Construtor do pai (super)
   Carneiro(Ponto2D posicao, String simbolo) : super(posicao, simbolo) {
@@ -57,36 +56,44 @@ class Carneiro extends Personagem{
       mover(mundo, 1, 0);
     } else if (direcao == MOVER_ESQUERDA) mover(mundo, -1, 0);
   }
-/*
- void fugir(Mundo mundo) {
-    // criar um número aleatório entre 0 e 100,
-    // logo em seguida, calcula o resto da divisão por 5,
-    // ou seja, só podemos ter os seguintes valores: 0, 1, 2, 3 e 4
 
-    //SE ESTIVER PERTO PLAYER CORRE DELE
 
-    //var direcao = _aleatorio.nextInt(1000) % QUANTIDADE_MOVIMENTOS;
-    var direcao = 
-    
 
-s
-s
+   void fugir(Mundo mundo){  //IAN
 
+      var randonPosition = _aleatorio.nextInt(100) % 2;
+
+      mover(mundo, jogador.posicao.x  + 1, randonPosition);
    
-    // desloca a criatura conforme o valor aleatório gerado
-    if (direcao == FICAR_PARADO) {
-      mover(mundo, 0, 0);
-    } else if (direcao == MOVER_BAIXO) {
-      mover(mundo, 0, 1);
-    } else if (direcao == MOVER_CIMA) {
-      mover(mundo, 0, -1);
-    } else if (direcao == MOVER_DIREITA) {
-      mover(mundo, 1, 0);
-    } else if (direcao == MOVER_ESQUERDA) mover(mundo, -1, 0);
+
   }
-*/
+
+
+
+
+
+
+/* FINCAO ANTIGA
+
+   void fugir(Mundo mundo){  //IAN
+
+      for (Carneiro carneiro in carneiros) { //FOREACH DE Carneiros
+      // Atualiza a posição de uma criatura
+      carneiro.atualizar(this);
+      //carneiro.atualizar(this); //IAN
+
+      // Se a posição de uma criatura for igual a posição do jogador
+      if (carneiro.posicao.toString() == jogador.posicao.toString()) {  //LOGICA PARA O LOBO IAN
+        // jogador toma 1 de dano (perde uma vida)
+       // carneiro.fugir(this); //AQUI DEVO CHAMAR o metodo fugir qu será criado no carneiro
+       carneiro.atualizar(this); //AQUI DEVO CHAMAR o metodo fugir qu será criado no carneiro
+      }      
+    }
+
+  }
+  **/
+
 }
 
 
 
-//criar um void de correr?

@@ -8,7 +8,7 @@ import 'package:roguelike/criatura.dart';
 class Roguelike {
   // Constantes
   static final String SIMBOLO_PAREDE = "#";
-  static final int QUANTIDADE_CRIATUDAS = 20;
+  static final int QUANTIDADE_CRIATURAS = 20;
   static final int QUANTIDADE_VIDAS = 2;
   static final double FATOR_PROFUNDIDADE = 2.0;
 
@@ -42,8 +42,8 @@ class Roguelike {
     _mundo = MundoBuilder(_largura, _altura)
         .preencher(SIMBOLO_PAREDE, true)
         .criarCaminho(posicao.x, posicao.y, passos)
-        .criarCriaturas(QUANTIDADE_CRIATUDAS, Criatura.SIMBOLO_CRIATURA_CARNEIRO)  //cria carneiro   
-        .criarCriaturas(QUANTIDADE_CRIATUDAS, Criatura.SIMBOLO_CRIATURA_LOBO)   //cria lobo
+        .criarCriaturas(QUANTIDADE_CRIATURAS, Criatura.SIMBOLO_CRIATURA_CARNEIRO)  //cria carneiro   
+        .criarCriaturas(QUANTIDADE_CRIATURAS, Criatura.SIMBOLO_CRIATURA_LOBO)   //cria lobo
         //.criarCriaturas(QUANTIDADE_CRIATUDAS, Criatura.SIMBOLO_CRIATURA)     //cria criatura padrão
         .build();
 
