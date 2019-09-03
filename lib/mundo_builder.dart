@@ -5,6 +5,7 @@ import 'package:roguelike/mundo.dart';
 import 'package:roguelike/ponto_2d.dart';
 import 'package:roguelike/lobo.dart';
 import 'package:roguelike/carneiro.dart';
+import 'package:roguelike/tesouro.dart';
 
 // Classe que criará mundos seguindo o padrão Builder
 class MundoBuilder {
@@ -17,6 +18,7 @@ class MundoBuilder {
   List<Criatura> criaturas;
   List<Lobo> lobos;
   List<Carneiro> carneiros;
+  List<Tesouro> tesouros;
 
 
   // Construtor padrão
@@ -24,6 +26,7 @@ class MundoBuilder {
     criaturas = [];
     lobos = [];
     carneiros = [];
+    tesouros = [];
   }
 
   // Método para preencher o mapa (passo 1 da heurística)
@@ -93,8 +96,35 @@ class MundoBuilder {
     return this;
   }
 
+
+  MundoBuilder criarTesouro(int quantidadeTesouro, String SIMBOLO_CRIATURAS) { 
+    // cria um número aleatório
+    Random aleatorio = Random();
+    int x, y;
+    // Cria N criaturas
+    for (int i = 0; i < quantidadeTesouro; i++) {
+      
+      do {
+        x = aleatorio.nextInt(largura);
+        y = aleatorio.nextInt(altura);
+      } while (mapa[x][y].bloqueado);
+
+     
+        tesouros.add(Tesouro(Ponto2D(x, y), Tesouro.SIMBOLO_TESOUSO, Tesouro.VALOR_TESOURO));
+        
+     
+
+    
+    }
+    return this;
+
+  }
+
+
+
+
   // Retorna um Mundo
   Mundo build() {
-    return Mundo(mapa, lobos, carneiros);
+    return Mundo(mapa, lobos, carneiros, tesouros);
   }
 }

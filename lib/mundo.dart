@@ -1,10 +1,12 @@
 import 'package:roguelike/celula.dart';
-import 'package:roguelike/criatura.dart';
+
 import 'package:roguelike/carneiro.dart'; //IAN
 import 'package:roguelike/lobo.dart'; //IAN
 import 'package:roguelike/jogador.dart';
 import 'package:roguelike/personagem.dart';
 import 'package:roguelike/ponto_2d.dart';
+import 'package:roguelike/tesouro.dart';
+
 
 // Classe que representa o mundo do jogo
 class Mundo {
@@ -15,19 +17,18 @@ class Mundo {
   // Lista de criaturas (NPCs)
   List<Lobo> lobos;
   List<Carneiro> carneiros;
+  List<Tesouro> tesouros;
  
   // Jogador controlado
   Jogador jogador;
-  Carneiro carneiro;
-  Lobo lobo;
- 
 
+  
 
 
   // Construtor padrão do mundo
   // @mapa: mapa criado de qualquer forma
   // @crituras: lista de criaturas posicionadas
-  Mundo(this.mapa, this.lobos, this.carneiros) {
+  Mundo(this.mapa, this.lobos, this.carneiros, this.tesouros) {
     _largura = mapa.length;
     _altura = mapa[0].length;
 
@@ -44,41 +45,46 @@ class Mundo {
   void atualizar() {
     // Atualiza a posição do jogador
     jogador.atualizar(this);  
-
+   
     // FOREACH: atualiza a posição de todas as criaturas
     
     
     for (Lobo lobo in lobos) { //FOREACH DE CRIATURAS
-      // Atualiza a posição de uma criatura
-      lobo.atualizar(this);
-      //carneiro.atualizar(this); //IAN
+      // Atualiza a posição de uma criatura Lobo
 
-      // Se a posição de uma criatura for igual a posição do jogador
-      if (lobo.posicao.toString() == jogador.posicao.toString()) {  //LOGICA PARA O LOBO IAN
-        // jogador toma 1 de dano (perde uma vida)
-         lobo.atualizar(this);
-      }      
+        lobo.atualizar(this);
+           
+              // Se a posição de uma criatura for igual a posição do jogador
+       if (lobo.posicao.toString() == jogador.posicao.toString()) {  //LOGICA PARA O LOBO IAN
+           //jogador toma 1 de dano (perde uma vida)
+          jogador.tomarDano(1);
+        }      
     }
-
+    
       for (Carneiro carneiro in carneiros) { //FOREACH DE CRIATURAS
       // Atualiza a posição de uma criatura
-      carneiro.atualizar(this);
+      //carneiro.atualizar(this);
       //carneiro.atualizar(this); //IAN
 
-    
+        if (carneiro.posicao.toString() == jogador.posicao.toString()) {  //LOGICA PARA O LOBO IAN
+        // jogador toma 1 de dano (perde uma vida)
+         carneiro.fugir(this);
+      }    
     }
 
+      for (Tesouro tesouro in tesouros) { //FOREACH DE CRIATURAS
+      // Atualiza a posição de uma criatura
+      //carneiro.atualizar(this);
+      //carneiro.atualizar(this); //IAN
 
-
-
+        if (tesouro.posicao.toString() == jogador.posicao.toString()) {  //LOGICA PARA O LOBO IAN
+        // jogador toma 1 de dano (perde uma vida)
+         tesouro.pegarValorTesouro(this);
+      }  tesouro.atualizar(this);
+    }
 
 
   }
-
-
- 
-
-
 
   // Método para desenhar o mundo no console
   void desenhar() {
@@ -93,6 +99,10 @@ class Mundo {
       map[carneiro.posicao.toString()] = carneiro;
     }
 
+      for (Tesouro tesouro in tesouros) {
+       map[tesouro.posicao.toString()] = tesouro;
+    }
+
 
 
     //foreach de carneiro? nAAAo...
@@ -100,10 +110,13 @@ class Mundo {
     // Adicionamos também o jogador no mapa
     map[jogador.posicao.toString()] = jogador;
 
+
     // Exibe informações do jogador
     print("Jogador está em [${jogador.posicao}]");
     print("Vidas: ${jogador.vidas}");
     print("Passos: ${jogador.passos}");
+    print("Valor Moedas de Tesouro: ${jogador.valorTesouro}");
+
 
         // Desenhar o mapa (percorre todas as linhas)
     for (int y = 0; y < _altura; y++) {
@@ -119,9 +132,13 @@ class Mundo {
           }           
              else if(map[Ponto2D(x, y).toString()].simbolo == Lobo.SIMBOLO_CRIATURA_LOBO) {
                 line += '\u001b[31;1m'+ map[Ponto2D(x, y).toString()].toString();
-              } else {
+              } else if (map[Ponto2D(x, y).toString()].simbolo == Carneiro.SIMBOLO_CRIATURA_CARNEIRO) {
                 line += '\u001b[32;1m'+ map[Ponto2D(x, y).toString()].toString();
-              }   // carneiro color '\u001b[32;1m'
+              } else {
+                  line += '\u001b[33;1m'+ map[Ponto2D(x, y).toString()].toString();
+              }
+              
+               // carneiro color '\u001b[32;1m'
         } else { // Desenha o mapa
           line += '\u001b[0m' + mapa[x][y].toString();
         }

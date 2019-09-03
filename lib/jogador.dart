@@ -14,6 +14,7 @@ class Jogador extends Personagem {
 
   int _vidas; // Variável privada (_nomeDaVariavel)
   int passos; // Variável publica
+  int valorTesouro = 0;
 
   // Getter para variável vida
   int get vidas => _vidas;

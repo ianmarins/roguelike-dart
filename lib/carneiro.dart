@@ -61,38 +61,14 @@ class Carneiro extends Personagem{
 
    void fugir(Mundo mundo){  //IAN
 
-      var randonPosition = _aleatorio.nextInt(100) % 2;
+      //var randonPosition = _aleatorio.nextInt(100) % 2;
 
-      mover(mundo, jogador.posicao.x  + 1, randonPosition);
+      mover(mundo, 2, 2);
+
+      //print("DEU CERTO");
    
 
   }
-
-
-
-
-
-
-/* FINCAO ANTIGA
-
-   void fugir(Mundo mundo){  //IAN
-
-      for (Carneiro carneiro in carneiros) { //FOREACH DE Carneiros
-      // Atualiza a posição de uma criatura
-      carneiro.atualizar(this);
-      //carneiro.atualizar(this); //IAN
-
-      // Se a posição de uma criatura for igual a posição do jogador
-      if (carneiro.posicao.toString() == jogador.posicao.toString()) {  //LOGICA PARA O LOBO IAN
-        // jogador toma 1 de dano (perde uma vida)
-       // carneiro.fugir(this); //AQUI DEVO CHAMAR o metodo fugir qu será criado no carneiro
-       carneiro.atualizar(this); //AQUI DEVO CHAMAR o metodo fugir qu será criado no carneiro
-      }      
-    }
-
-  }
-  **/
-
 }
 
 

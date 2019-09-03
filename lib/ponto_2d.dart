@@ -10,6 +10,8 @@ class Ponto2D {
     this.x = this.y = 0;
   }
 
+
+
   // Sobrescrita do método toString da classe Object
   @override
   String toString() {
